@@ -1,20 +1,26 @@
 "use client";
 
+import React from "react";
 import { useState } from "react";
-import Head from "next/head";
+import Image from "next/image";
 import axios from "axios";
 
 export default function Home() {
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState<string>("");
   const [weather, setWeather] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const getWeather = async () => {
+  const getWeather = async (): Promise<void> => {
     if (!city) return;
     setLoading(true);
     try {
       const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
-      
+      if (!apiKey) {
+        alert("API key not set. Please add it to your .env.local");
+        setLoading(false);
+        return;
+      }
+
       const res = await axios.get(
         `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`
       );
@@ -28,18 +34,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
-      <Head>
-        <title>Weather-Bot</title>
-        <meta name="description" content="Smart Weather Forecasting for Everyone" />
-      </Head>
-
       <main className="flex-1 flex flex-col items-center justify-center px-4 mt-16">
-  <h1 className="text-5xl font-bold mb-4">🌤️ Weather-Bot</h1>
-  <p className="text-lg mb-6 text-center max-w-xl text-gray-300">
-    Get real-time weather for any city, powered by WeatherAPI.com
-  </p>
-  
-
+        <h1 className="text-5xl font-bold mb-4">🌤️ Weather-Bot</h1>
+        <p className="text-lg mb-6 text-center max-w-xl text-gray-300">
+          Get real-time weather for any city, powered by WeatherAPI.com
+        </p>
 
         <div className="flex gap-2 mb-4">
           <input
@@ -64,11 +63,15 @@ export default function Home() {
               {weather.location.name}, {weather.location.country}
             </h2>
             <p className="text-xl mt-2 capitalize">{weather.current.condition.text}</p>
-            <img
-              src={weather.current.condition.icon}
-              alt="Weather Icon"
-              className="mx-auto my-2"
-            />
+            <div className="mx-auto my-2 relative w-20 h-20">
+              <Image
+                src={`https:${weather.current.condition.icon}`}
+                alt="Weather Icon"
+                fill
+                style={{ objectFit: "contain" }}
+                priority
+              />
+            </div>
             <p className="text-5xl mt-2 font-light">{weather.current.temp_c}°C</p>
             <div className="mt-4 flex justify-center gap-6 text-sm text-gray-300">
               <div>🌡️ Feels: {weather.current.feelslike_c}°C</div>
