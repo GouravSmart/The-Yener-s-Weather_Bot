@@ -26,7 +26,7 @@ export default function Home() {
 
 const [weather, setWeather] = useState<WeatherData | null>(null);
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [,setLoading] = useState<boolean>(false);
 
   const getWeather = async (): Promise<void> => {
     if (!city) return;
