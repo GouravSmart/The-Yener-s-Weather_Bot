@@ -13,7 +13,8 @@ export default function Home() {
     if (!city) return;
     setLoading(true);
     try {
-      const apiKey = "f791564b98d748e78a693507252005"; // Replace with your real API key
+      const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
+      
       const res = await axios.get(
         `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`
       );
