@@ -34,7 +34,7 @@ const [weather, setWeather] = useState<WeatherData | null>(null);
     try {
       const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
       if (!apiKey) {
-        alert("API key not set. Please add it to your .env.local");
+        alert("An Error Occurred: Try again later.");
         setLoading(false);
         return;
       }
@@ -57,7 +57,7 @@ const [weather, setWeather] = useState<WeatherData | null>(null);
       <main className="flex-1 flex flex-col items-center justify-center px-4 mt-16">
         <h1 className="text-5xl font-bold mb-4">🌤️ Weather-Bot</h1>
         <p className="text-lg mb-6 text-center max-w-xl text-gray-300">
-          Get real-time weather for any city, powered by WeatherAPI.com
+          Get real-time weather for any city, co-powered by Yener.Inc.
         </p>
 
         <div className="flex gap-2 mb-4">
