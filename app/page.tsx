@@ -7,7 +7,25 @@ import axios from "axios";
 
 export default function Home() {
   const [city, setCity] = useState<string>("");
-  const [weather, setWeather] = useState<any>(null);
+  interface WeatherData {
+  location: {
+    name: string;
+    country: string;
+  };
+  current: {
+    temp_c: number;
+    condition: {
+      text: string;
+      icon: string;
+    };
+    feelslike_c: number;
+    humidity: number;
+    wind_kph: number;
+  };
+}
+
+const [weather, setWeather] = useState<WeatherData | null>(null);
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const getWeather = async (): Promise<void> => {
