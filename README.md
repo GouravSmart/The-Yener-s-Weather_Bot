@@ -1,4 +1,4 @@
-# 🌤️ Weather-Bot SaaS
+# 🌤️ Weather-Bot
 
 A sleek, real-time weather forecasting SaaS app built with **Next.js 14**, **Tailwind CSS**, and **WeatherAPI.com**. Enter a city name and instantly get current weather data with a modern UI.
 
