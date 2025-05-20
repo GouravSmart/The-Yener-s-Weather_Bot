@@ -43,12 +43,14 @@ const [weather, setWeather] = useState<WeatherData | null>(null);
         `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`
       );
       setWeather(res.data);
-    } catch (err: any) {
-      alert("Error: " + (err.response?.data?.error?.message || err.message));
-      setWeather(null);
-    }
-    setLoading(false);
-  };
+    } catch (err) {
+  if (err instanceof Error) {
+    alert("Error: " + err.message);
+  } else {
+    alert("An unknown error occurred.");
+  }
+}
+};
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
